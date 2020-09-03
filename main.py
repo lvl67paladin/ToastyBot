@@ -35,13 +35,18 @@ async def test(ctx):
 async def on_message(ctx):
     print(f"{ctx.channel}: {ctx.author}: {ctx.author.name}: {ctx.content}")
     myquery = {"_id": ctx.author.id}
+    #first check if the message is from bot itelf
+    if ctx.author==bot.user:
+        await bot.process_commands(ctx)
+        
+    if "money" in str(ctx.content.lower()):
+        await ctx.channel.send("here! take some coins you pityful creature")
+    
     if (collection.count_documents(myquery) == 0):
         if "crispy" in str(ctx.content.lower()):
             post = {"_id": ctx.author.id, "score": 1}
             collection.insert_one(post)
             await ctx.channel.send('accepted!')
-    elif "money" in str(ctx.content.lower()):
-        await ctx.channel.send("here! take some money you pityful creature")
     else:
         if "crispy" in str(ctx.content.lower()):
             query = {"_id": ctx.author.id}
