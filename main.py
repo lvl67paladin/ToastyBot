@@ -33,12 +33,15 @@ async def test(ctx):
 
 @bot.event
 async def on_message(ctx):
-    print(f"{ctx.channel}: {ctx.author}: {ctx.author.name}: {ctx.content}")
+    #print(f"{ctx.channel}: {ctx.author}: {ctx.author.name}: {ctx.content}")
     myquery = {"_id": ctx.author.id}
     #first check if the message is from bot itelf
     if ctx.author==bot.user:
         await bot.process_commands(ctx)
-        
+
+    if "stream" in str(ctx.content.lower()):
+        await ctx.channel.send("simp!")
+
     if "money" in str(ctx.content.lower()):
         await ctx.channel.send("here! take some coins you pityful creature")
     
