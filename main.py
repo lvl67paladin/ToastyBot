@@ -1,14 +1,20 @@
+import os
+from dotenv import load_dotenv
 import discord
 from discord.ext import commands
 
 import pymongo
 from pymongo import MongoClient
 
+load_dotenv()
+token=os.getenv('token')
+
+db_cluster=os.getenv('db_cluster')
 #Using this prefix for testing purposes, can be changed later to anything we decide
 bot = commands.Bot(command_prefix='?')
 
 #MongoDB cluster
-cluster = MongoClient("mongodb+srv://dbusertest:dbuserpass@cluster0.f23tr.mongodb.net/test")
+cluster = MongoClient(db_cluster)
 db = cluster["bot_user_data"]
 collection = db["bot_user"]
 
@@ -23,6 +29,8 @@ async def test(ctx):
 
 
 
+
+
 @bot.event
 async def on_message(ctx):
     print(f"{ctx.channel}: {ctx.author}: {ctx.author.name}: {ctx.content}")
@@ -32,6 +40,8 @@ async def on_message(ctx):
             post = {"_id": ctx.author.id, "score": 1}
             collection.insert_one(post)
             await ctx.channel.send('accepted!')
+    elif "money" in str(ctx.content.lower()):
+        await ctx.channel.send("here! take some money you pityful creature")
     else:
         if "crispy" in str(ctx.content.lower()):
             query = {"_id": ctx.author.id}
@@ -53,6 +63,6 @@ async def score(ctx):
 #I think that other people shouldn't see the bot.run token, so I'll leave it blank
 #in the github and add it when we need it
 try:
-    bot.run('NTA3Nzc3OTQ1NjA4MjU3NTM3.W9vXEA.wGVaypo5CXlbnJuMaiU4clgP0FQ')
+    bot.run(token)
 except Exception as e:
     print(f"problem logging in:{e}")
