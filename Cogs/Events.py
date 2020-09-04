@@ -31,7 +31,7 @@ class Events(commands.Cog):
         myquery = {"_id": ctx.author.id}
         #first check if the message is from bot itelf
         if ctx.author==self.bot.user:
-            await self.bot.process_commands(ctx)
+            await self.bot.process_commands(self, ctx)
 
         if "stream" in str(ctx.content.lower()):
             await ctx.channel.send("simp!")
@@ -54,7 +54,7 @@ class Events(commands.Cog):
                 collection.update_one({"_id":ctx.author.id}, {"$set":{"score":score}})
                 await ctx.channel.send('accepted!')
         #very important..we need to call this otherwise commands won't work
-        await self.bot.process_commands(ctx)
+        await self.bot.process_commands(self, ctx)
 
 
 def setup(bot):
