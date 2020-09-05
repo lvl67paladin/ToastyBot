@@ -2,3 +2,5 @@
 .env
 #Test cog
 TestCog.py
+
+__pycache__
