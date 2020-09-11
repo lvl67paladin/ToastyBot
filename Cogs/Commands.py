@@ -3,7 +3,6 @@ from discord.ext import commands
 import os
 from dotenv import load_dotenv
 
-# import Cluster
 
 
 class Com(commands.Cog):
@@ -22,7 +21,7 @@ class Com(commands.Cog):
     async def test(self, ctx):
         await ctx.send("Yo!")
 
-    
+
 
 def setup(bot):
     bot.add_cog(Com(bot))
