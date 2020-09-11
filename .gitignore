@@ -2,5 +2,5 @@
 .env
 #Test cog
 TestCog.py
-
+#this useless thing 
 __pycache__

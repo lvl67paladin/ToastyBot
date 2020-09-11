@@ -1,23 +1,16 @@
-#!/usr/bin/python
 import os
 from dotenv import load_dotenv
 import discord
 from discord.ext import commands
 
-import pymongo
-from pymongo import MongoClient
+
 
 load_dotenv()
 token=os.getenv('token')
 
-db_cluster=os.getenv('db_cluster')
 #Using this prefix for testing purposes, can be changed later to anything we decide
 bot = commands.Bot(command_prefix='?')
 
-#MongoDB cluster
-cluster = MongoClient(db_cluster)
-db = cluster["bot_user_data"]
-collection = db["bot_user"]
 
 
 # Trying to implement cogs idk.
@@ -42,6 +35,8 @@ async def reload(ctx, extension):
 
 #Loading all cogs
 for filename in os.listdir('./Cogs'):
+    #So, I get an error if I load CLuster.py as an extentsion, cuz you need that Cog.add thing
+    #So, this is my "eh, I'll just hard code it solution"
     if filename.endswith('.py'):
         bot.load_extension(f'Cogs.{filename[:-3]}')
 
