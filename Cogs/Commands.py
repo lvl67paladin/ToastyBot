@@ -22,11 +22,7 @@ class Com(commands.Cog):
     async def test(self, ctx):
         await ctx.send("Yo!")
 
-    Score command
-    @commands.command()
-    async def score(self, ctx):
-        score=Cluster.collection.find_one({"_id": ctx.author.id})
-        await ctx.send(score["score"])
+    
 
 def setup(bot):
     bot.add_cog(Com(bot))
